@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table 1 and Table 2</title>
+  <style>
+    /* Add CSS styling for the table here if needed */
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Table 1</h1>
+  <table id="table1">
+    <!-- Table 1 will be populated using JavaScript -->
+  </table>
+
+  <h1>Table 2</h1>
+  <table id="table2">
+    <tr>
+      <th>Category</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Alpha</td>
+      <td id="alpha-value"></td>
+    </tr>
+    <tr>
+      <td>Beta</td>
+      <td id="beta-value"></td>
+    </tr>
+    <tr>
+      <td>Charlie</td>
+      <td id="charlie-value"></td>
+    </tr>
+  </table>
+
+  <script>
+    // Function to fetch and parse the CSV data
+    async function fetchAndDisplayCSV() {
+        const response = await fetch('Table_Input.csv'); // Replace with your CSV file path
+        const textData = await response.text();
+        const rows = textData.split('\n').map(row => row.split(','));
+
+        // Generate the table HTML
+        const table = document.getElementById('table1');
+        for (let i = 0; i < rows.length; i++) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < rows[i].length; j++) {
+                const cell = document.createElement(i === 0 ? 'th' : 'td');
+                cell.textContent = rows[i][j];
+                row.appendChild(cell);
+            }
+            table.appendChild(row);
+        }
+
+        // Calculate and display values for Table 2
+        const alphaValue = parseInt(rows[5][1]) + parseInt(rows[20][1]);
+        const betaValue = parseInt(rows[15][1]) / parseInt(rows[7][1]);
+        const charlieValue = parseInt(rows[13][1]) * parseInt(rows[12][1]);
+
+        document.getElementById('alpha-value').textContent = alphaValue;
+        document.getElementById('beta-value').textContent = betaValue;
+        document.getElementById('charlie-value').textContent = charlieValue;
+
+    }
+
+    // Call the function to fetch and display the CSV data
+    fetchAndDisplayCSV();
+  </script>
+</body>
+</html>
