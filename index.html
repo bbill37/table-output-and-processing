@@ -42,6 +42,31 @@
     </tr>
   </table>
 
+  <!-- <script>
+    window.onload = () => {
+      // FILE READER + HTML ELEMENTS
+      var reader = new FileReader(),
+      // picker = document.getElementById("picker"),
+      table = document.getElementById("table1");
+
+      // READ CSV
+      response = fetch('Table_Input.csv'); // Replace with your CSV file path
+      let textData = response.text();
+
+      // CLEAR HTML TABLE
+      table.innerHTML = "";
+
+      // SPLIT INTO ROWS
+      let rows = textData.split("\r\n");
+      
+      // LOOP THRU ROWS + SPLIT COL
+      for (let row of rows) {
+        let cols = row.match(/(?:\"([^\"]*(?:\"\"[^\"]*)*)\")|([^\",]+)/g);
+        console.log(cols);
+      }
+    }
+  </script> -->
+
   <script>
     // Function to fetch and parse the CSV data
     async function fetchAndDisplayCSV() {
